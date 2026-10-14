@@ -1,4 +1,4 @@
--- Mano Gustavo Hub | modelo pronto com RetroBox 1.9.2
+-- Mano Gustavo Hub | RetroBox API 2 com atualizações estáveis automáticas
 -- Edite CONFIG. A interface e o carregador ficam prontos abaixo.
 -- A RetroBox carrega por HTTP; nenhum arquivo local dela é necessário.
 
@@ -115,7 +115,7 @@ local CONFIG = {
 -- FIM DA CONFIGURACAO
 
 -- MOTOR DO HUB: nao precisa editar para cadastrar jogos e scripts.
-local RETROBOX_RAW = "https://raw.githubusercontent.com/ManoGustavo0/RetroBox/4eb987097a9ee37ea9b84bf87ab797a93123590b/RetroBox-UI-v1.1.0/retrobox-ui/RetroBox.lua"
+local RETROBOX_LOADER_URL = "https://raw.githubusercontent.com/ManoGustavo0/RetroBox/main/dist/bootstrap/v2.lua"
 
 local function fail(message)
     error("[Mano Gustavo Hub] " .. tostring(message), 0)
@@ -125,16 +125,16 @@ local function loadRetroBox()
     if type(loadstring) ~= "function" then
         fail("O ambiente precisa disponibilizar loadstring para carregar a RetroBox.")
     end
-    local ok, source = pcall(function() return game:HttpGet(RETROBOX_RAW) end)
+    local ok, source = pcall(function() return game:HttpGet(RETROBOX_LOADER_URL) end)
     if not ok then fail("Não foi possível baixar a RetroBox: " .. tostring(source)) end
     if type(source) ~= "string" or source == "" then fail("O raw da RetroBox retornou vazio.") end
-    local chunk, reason = loadstring(source, "@RetroBox-1.9.2")
+    local chunk, reason = loadstring(source, "@RetroBox-bootstrap-v2")
     if not chunk then fail("Não foi possível compilar a RetroBox: " .. tostring(reason)) end
-    local loaded, library = pcall(chunk)
+    local loaded, library = pcall(chunk, {Channel = "stable"})
     if not loaded then fail("Não foi possível iniciar a RetroBox: " .. tostring(library)) end
-    if type(library) ~= "table" or library.Version ~= "1.9.2"
+    if type(library) ~= "table" or library.APIVersion ~= 2
         or type(library.CreateScriptHub) ~= "function" then
-        fail("O carregador esperava a RetroBox 1.9.2 com Script Hub.")
+        fail("O carregador esperava uma RetroBox compatível com a API 2 e Script Hub.")
     end
     return library
 end
