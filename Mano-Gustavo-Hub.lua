@@ -1,4 +1,4 @@
--- Mano Gustavo Hub | modelo pronto com RetroBox 1.9.2
+-- Mano Gustavo Hub | modelo pronto com RetroBox 1.9.0
 -- Edite CONFIG. A interface e o carregador ficam prontos abaixo.
 -- A RetroBox carrega por HTTP; nenhum arquivo local dela é necessário.
 
@@ -25,7 +25,8 @@ local CONFIG = {
             Name = "Mushyo",
             Description = "Esse jogo possui alguns script gulosos",
             PlaceId = 17274762379,
-            UniverseId = 5909935640, -- ID da experiência; diferente de PlaceId.
+            UniverseId = 5909935640, -- Número em roblox.com/games/NUMERO/...
+            UniverseId = nil, -- game.GameId; opcional, diferente de PlaceId.
             Image = nil, -- Opcional: "rbxassetid://123". Sem isso, usa os IDs.
             Scripts = {
                 {
@@ -68,7 +69,7 @@ local CONFIG = {
             Image = nil,
             Scripts = {
                 {
-                    Id = "CaesScript1", -- ID interno sem acento; Title mantém o nome Cães.
+                    Id = "CaesScript1",
                     Title = "Cães Hub",
                     Description = "Esse script tem silent aim, stamina infinita e muito mais!",
                     URL = "https://raw.githubusercontent.com/ManoGustavo0/C-es/refs/heads/main/c%C3%A3es.lua",
@@ -93,12 +94,29 @@ local CONFIG = {
                 },
             },
         },
+        {
+            Id = "jogo-5",
+            Name = "Dandy's World",
+            Description = "Esse jogo possui alguns scripts de auto minigame, infinita stamina e muito mais.",
+            PlaceId = 16116270224,
+            UniverseId = nil,
+            Image = nil,
+            Scripts = {
+                {
+                    Id = "DandysWorld1",
+                    Title = "Dandy's World Hub",
+                    Description = "Esse script tem esp para players, monstros e itens, auto minigame e muito mais",
+                    URL = "https://raw.githubusercontent.com/ManoGustavo0/Dandy-s-World/refs/heads/main/DandyRetro.lua",
+                    Callback = nil,
+                },
+            },
+        },
     },
 }
 -- FIM DA CONFIGURACAO
 
 -- MOTOR DO HUB: nao precisa editar para cadastrar jogos e scripts.
-local RETROBOX_RAW = "https://raw.githubusercontent.com/ManoGustavo0/RetroBox/4eb987097a9ee37ea9b84bf87ab797a93123590b/RetroBox-UI-v1.1.0/retrobox-ui/RetroBox.lua"
+local RETROBOX_RAW = "https://raw.githubusercontent.com/ManoGustavo0/RetroBox/b5ce7707762b878188840881f28cff9a300b50b5/RetroBox-UI-v1.1.0/retrobox-ui/RetroBox.lua"
 
 local function fail(message)
     error("[Mano Gustavo Hub] " .. tostring(message), 0)
@@ -111,13 +129,13 @@ local function loadRetroBox()
     local ok, source = pcall(function() return game:HttpGet(RETROBOX_RAW) end)
     if not ok then fail("Não foi possível baixar a RetroBox: " .. tostring(source)) end
     if type(source) ~= "string" or source == "" then fail("O raw da RetroBox retornou vazio.") end
-    local chunk, reason = loadstring(source, "@RetroBox-1.9.2")
+    local chunk, reason = loadstring(source, "@RetroBox-1.9.0")
     if not chunk then fail("Não foi possível compilar a RetroBox: " .. tostring(reason)) end
     local loaded, library = pcall(chunk)
     if not loaded then fail("Não foi possível iniciar a RetroBox: " .. tostring(library)) end
-    if type(library) ~= "table" or library.Version ~= "1.9.2"
+    if type(library) ~= "table" or library.Version ~= "1.9.0"
         or type(library.CreateScriptHub) ~= "function" then
-        fail("O carregador esperava a RetroBox 1.9.2 com Script Hub.")
+        fail("O carregador esperava a RetroBox 1.9.0 com Script Hub.")
     end
     return library
 end
