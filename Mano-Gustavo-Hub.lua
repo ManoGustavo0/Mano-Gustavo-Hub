@@ -110,6 +110,23 @@ local CONFIG = {
                 },
             },
         },
+        {
+            Id = "jogo-6",
+            Name = "Commander Tycoon",
+            Description = "Esse jogo possui alguns scripts de auto bandeira, auto bump e auto upgrade",
+            PlaceId = 119263815547952,
+            UniverseId = nil,
+            Image = nil,
+            Scripts = {
+                {
+                    Id = "CommanderTycoon1",
+                    Title = "Commander Tycoon Hub",
+                    Description = "Esse script tem auto bandeira, auto óleo, auto upgrade e auto promoção",
+                    URL = "https://raw.githubusercontent.com/ManoGustavo0/ComandanteTycoon/refs/heads/main/ComandanteTycoonRetro.lua",
+                    Callback = nil,
+                },
+            },
+        },
     },
 }
 -- FIM DA CONFIGURACAO
