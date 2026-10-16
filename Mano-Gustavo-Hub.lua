@@ -6,7 +6,7 @@
 local CONFIG = {
     Name = "Mano Gustavo Hub",
     Author = "Mano Gustavo",
-    Version = "1.0.0",
+    Version = "1.0.6",
     Subtitle = "Teus jogos, teus scripts, teu hub.",
     Theme = "Hacker",
     -- Outros temas: Retro98, Terminal, GameBoy, Paper, Midnight, Monokai,
@@ -32,7 +32,7 @@ local CONFIG = {
                     Id = "mushyoscript1",
                     Title = "Mushyo Hub",
                     Description = "Auto fish e muito mais!",
-                    Version = "1.5.0",
+                    Version = "1.0.8",
                     Enabled = true,
                     CurrentGameOnly = false, -- true exige um ID que corresponda à sessão.
                     URL = "https://raw.githubusercontent.com/ManoGustavo0/muchyohub/refs/heads/main/mushyohub.lua", -- Ex.: https://raw.githubusercontent.com/USUARIO/REPO/main/script.lua
